@@ -30,9 +30,6 @@ public class DocTrackerService {
     @Autowired
     private GeminiService geminiService;
 
-    @Value("${api.key}")
-    private String apiKey;
-
     public Map<String, List<String>> findSynonymsByDocument(Long documentId) {
         String longestWord = documentWordCountRepository.findLongestWordByDocumentId(documentId);
         if (longestWord == null || longestWord.isEmpty()) {
@@ -41,7 +38,7 @@ public class DocTrackerService {
 
         String response;
         try {
-            response = geminiService.callApi("Provide only a comma-separated list of synonyms for the word '" + longestWord + "' without any additional context or explanations.", apiKey);
+            response = geminiService.callApi("Provide only a comma-separated list of synonyms for the word '" + longestWord + "' without any additional context or explanations.", "AIzaSyDnZ1gctosVjNKwNhpPiYSyumEn5cJ9-co");
         } catch (Exception e) {
             throw new RuntimeException("Failed to retrieve synonyms from the external API.");
         }
